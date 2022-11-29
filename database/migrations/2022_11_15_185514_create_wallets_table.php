@@ -1,6 +1,6 @@
 <?php
 
-use App\Enums\Fields\OnlineStatus;
+use App\Enums\Fields\DigitalCurrency;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -13,11 +13,11 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('channels', function (Blueprint $table) {
+        Schema::create('wallets', function (Blueprint $table) {
             $table->id();
-            $table->string('name')->nullable()->comment('名称');
-            $table->tinyInteger('online_status')->default(OnlineStatus::UP)->nullable()->comment('在线状态')->index('online_status');
-            $table->integer('sort')->nullable()->comment('排序')->index('sort');;
+            $table->unsignedBigInteger('admin_user_id')->comment('所属用户')->nullable()->default(0)->index('admin_user');
+            $table->integer('digital_currency')->default(DigitalCurrency::NORMAL)->comment('货币')->index('digital_currency');
+            $table->bigInteger('balance')->default(0)->comment('余额');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -30,6 +30,6 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('channels');
+        Schema::dropIfExists('merchant_wwalletsallets');
     }
 };
