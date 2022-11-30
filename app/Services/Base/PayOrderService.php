@@ -22,7 +22,7 @@ class PayOrderService
      */
     public static function list(int $page, int $limit, array $params = []): LengthAwarePaginator
     {
-        $query = PayOrder::query();
+        $query = PayOrder::query()->with(['application']);
 
         $cols = ['id', 'title', 'admin_user_id', 'application_id', 'fee', 'pay_fee', 'pay_status', 'status', 'callback_status', 'created_at', 'callback_at', 'pay_submit_at', 'pay_finish_at'];
         if (!empty($params['status'])) {
