@@ -38,7 +38,7 @@ class PayOrderRefreshPayFeeJob implements ShouldQueue
     public function handle(): int
     {
         $order = PayOrderService::findById($this->orderId);
-        if (empty($order) || $order->pay_status != PayStatus::NORMAL) {
+        if (empty($order) || PayStatus::NORMAL()->isNot($order->pay_status)) {
             return 0;
         }
         $nowPrice = floatval(Cache::get('fantom_current_price', '0'));

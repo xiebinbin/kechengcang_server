@@ -92,14 +92,14 @@ class PayOrderService
         if (!empty($data['receipt_account']) && $item->receipt_account != $data['receipt_account']) {
             $item->receipt_account = $data['receipt_account'];
         }
-        if (!empty($data['pay_status']) && $item->pay_status != $data['pay_status']) {
-            $item->pay_status = $data['pay_status'];
+        if (!empty($data['pay_status'])) {
+            $item->pay_status = PayStatus::fromValue($data['pay_status']);
         }
-        if (!empty($data['status']) && $item->status != $data['status']) {
-            $item->status = $data['status'];
+        if (!empty($data['status'])) {
+            $item->status = OrderStatus::fromValue($data['status']);
         }
-        if (!empty($data['callback_status']) && $item->callback_status != $data['callback_status']) {
-            $item->callback_status = $data['callback_status'];
+        if (!empty($data['callback_status'])) {
+            $item->callback_status = CallbackStatus::fromValue($data['callback_status']);
         }
         if (!empty($data['callback_at']) && $item->callback_at != $data['callback_at']) {
             $item->callback_at = $data['callback_at'];
@@ -139,6 +139,6 @@ class PayOrderService
      */
     public static function findById(int $id): ?PayOrder
     {
-        return PayOrder::query()->with(['admin_user','application'])->find($id);
+        return PayOrder::query()->with(['admin_user', 'application'])->find($id);
     }
 }

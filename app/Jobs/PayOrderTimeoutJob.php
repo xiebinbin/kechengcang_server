@@ -36,7 +36,7 @@ class PayOrderTimeoutJob implements ShouldQueue
     public function handle(): int
     {
         $order = PayOrderService::findById($this->orderId);
-        if (empty($order) || in_array($order->pay_status, [PayStatus::TIMEOUT, PayStatus::FINISH])) {
+        if (empty($order) || $order->pay_status->in([PayStatus::TIMEOUT, PayStatus::FINISH])) {
             return 0;
         }
         PayOrderService::update($order->id, [
