@@ -23,7 +23,7 @@ class ApplicationService
     public static function list(int $page, int $limit, array $params = []): LengthAwarePaginator
     {
         $query = Application::query();
-        $cols = ['id', 'name', 'status', 'check_status','created_at'];
+        $cols = ['id', 'name', 'status', 'check_status', 'created_at'];
         if (!empty($params['status'])) {
             $query->where('status', $params['status']);
         }
@@ -75,11 +75,12 @@ class ApplicationService
         if (!empty($data['remark']) && $item->remark != $data['remark']) {
             $item->remark = $data['remark'];
         }
-        if (!empty($data['check_status']) && $item->check_status != $data['check_status']) {
+        if (!empty($data['check_status'])) {
             $item->check_status = CheckStatus::fromValue($data['check_status']);
         }
-        if (!empty($data['status']) && $item->status != $data['status']) {
-            $item->status = $data['status'];
+        if (!empty($data['status'])) {
+
+            $item->status = ApplicationStatus::fromValue($data['status']);
         }
         if (!empty($data['app_id']) && $item->app_id != $data['app_id']) {
             $item->app_id = $data['app_id'];
