@@ -4,6 +4,7 @@ namespace App\Services\Base;
 
 use App\Enums\Fields\ApplicationStatus;
 use App\Enums\Fields\CallbackStatus;
+use App\Enums\Fields\CheckStatus;
 use App\Models\Application;
 use App\Services\Admin\AdminUserService;
 use Exception;
@@ -75,7 +76,7 @@ class ApplicationService
             $item->remark = $data['remark'];
         }
         if (!empty($data['check_status']) && $item->check_status != $data['check_status']) {
-            $item->check_status = $data['check_status'];
+            $item->check_status = CheckStatus::fromValue($data['check_status']);
         }
         if (!empty($data['status']) && $item->status != $data['status']) {
             $item->status = $data['status'];

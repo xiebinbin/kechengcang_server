@@ -34,16 +34,16 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        $baseUrl = 'http://127.0.0.1:8000';
+        $baseUrl = 'https://api.magapaypal.com';
         $api = '/api/web/pay-orders/store';
         $salt = Str::random(6);
-        $key = 'EzaCu4FHLpBE8ZExwXayzmIEfISbylmP10V9OqN8CnxdNLUosbtlrbxawn4DFWtyy4uWrt4LoTeCz9ClQvkFY9qcn1num3AsNyO9SBPgBwNZECaLTWdFC5qNUSQhWJWf';
+        $key = '6eXc46XUBDlOUAQBjfbjHhRwkIEzQOL18FcyD9kym8WhDeQXkJeX1B8QTT6czyeO';
         $sign = ApplicationService::sign($key,$salt);
         $params = [
             'title' => '测试',
             'fee' => 2000,
             'remark'=>'xx',
-            'app_id' => 'b6TI6NoWwEKIdYaHrICMMyTEJ2hB2mBIsLexCUmh4SegqmnfHKEG2JMLZ9wsABzqIrmgiFqfGbxe9ERKuF4PiCw378Q6yqPbwjqI5RnDdhDQI1gkf3ZC2rH9s3A9ZhGU',
+            'app_id' => 'So2LBFyyYHwUVjIWmY1uEauXL4wtIhCITWHaySNW8Yq5C2WciVtnmDL6lje0DubA',
             'salt' => $salt,
             'sign'=>$sign,
             'currency'=>1

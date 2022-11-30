@@ -31,6 +31,7 @@ class CreateAdminUserCommand extends Command
      */
     public function handle(): int
     {
+
         $name = $this->ask('账户名:');
         $password = $this->ask('输入密码:');
         if (!empty($name) && !empty($password)) {
