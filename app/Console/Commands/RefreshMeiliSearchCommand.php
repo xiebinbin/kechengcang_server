@@ -39,6 +39,7 @@ class RefreshMeiliSearchCommand extends Command
         $client = new Client($host, $key);
         $index = (new Course())->searchableAs();
 
+        $client->createIndex($index);
         $client->index($index)->updateSortableAttributes([
             'id',
             'sort'
