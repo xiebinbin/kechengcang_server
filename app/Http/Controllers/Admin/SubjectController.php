@@ -52,7 +52,7 @@ class SubjectController extends Controller
      */
     public function store(StoreRequest $request): JsonResponse
     {
-        $input = $request->all(['title', 'icon_url', 'online_status', 'channel_id']);
+        $input = $request->all(['name', 'icon_url', 'online_status', 'channel_id']);
         $item = SubjectService::create($input);
         return $this->success($item->toArray());
     }
