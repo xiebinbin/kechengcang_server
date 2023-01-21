@@ -24,6 +24,6 @@ class UploadService
     #[ArrayShape(['url' => "false|string"])]
     public static function store(UploadedFile $file): string
     {
-        return $file->store('tmp/' . now()->format('Y/m/d'), 'public');
+        return $file->store('tmp/' . now()->format('Y/m/d'), ['disk'=>'public']);
     }
 }

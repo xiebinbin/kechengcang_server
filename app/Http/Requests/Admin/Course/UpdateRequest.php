@@ -27,7 +27,7 @@ class UpdateRequest extends FormRequest
     {
         return [
             'id' => 'required',
-            'title' => 'nullable|integer',
+            'title' => 'nullable|string',
             'online_status' => 'integer',
         ];
     }
