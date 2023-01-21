@@ -25,7 +25,7 @@ class Application extends Model
     /**
      * @return BelongsTo
      */
-    public function merchant()
+    public function merchant(): BelongsTo
     {
         return $this->belongsTo(Merchant::class);
     }

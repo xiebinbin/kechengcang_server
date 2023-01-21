@@ -17,9 +17,10 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('channel_id')->default(0)->comment('所属频道')->index('channel');
             $table->unsignedBigInteger('subject_id')->default(0)->comment('所属栏目')->index('subject');
-            $table->string('title')->nullable()->comment('名称');
+            $table->string('name')->nullable()->comment('名称');
             $table->tinyInteger('online_status')->nullable()->default(OnlineStatus::UP)->comment('在线状态')->index('online_status');
             $table->integer('sort')->nullable()->comment('排序')->index('sort');
+            $table->integer('course_number')->nullable()->default(0)->comment('课程数量');
             $table->timestamps();
             $table->softDeletes();
         });

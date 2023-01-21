@@ -20,6 +20,10 @@ class Course extends Model
     protected $casts = [
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
+        'category_ids' => 'array',
+        'resources' => 'json',
+        'detail' => 'json',
+        'catalogue' => 'json',
         'online_status' => OnlineStatus::class,
         'recommend_status' => RecommendStatus::class
     ];
@@ -38,26 +42,31 @@ class Course extends Model
     public function toSearchableArray(): array
     {
         $array = $this->toArray();
-        // 组织
+        $categoryIds = [];
+        $subjectIds = [];
+        $channelIds = [];
+        foreach ($array['category_ids'] as $categoryId) {
+            $tmp = explode('-', $categoryId);
+            $channelIds[] = intval($tmp[0]);
+            $subjectIds[] = intval($tmp[1]);
+            $categoryIds[] = intval($tmp[2]);
+        }
+        unset($array['detail'], $array['catalogue'], $array['resources']);
+        $array['category_ids'] = $categoryIds;
+        $array['subject_ids'] = array_unique($subjectIds);
+        $array['channel_ids'] = array_unique($channelIds);
         return $array;
     }
 
     public function getScoutKey()
     {
+        // 将id转化为hashid
         return $this->id;
     }
 
     public function getScoutKeyName(): string
     {
         return 'id';
-    }
-
-    /**
-     * @return HasMany
-     */
-    public function resources(): HasMany
-    {
-        return $this->hasMany(CourseResource::class);
     }
 
     /**
@@ -74,13 +83,5 @@ class Course extends Model
     public function subjects(): BelongsToMany
     {
         return $this->belongsToMany(Subject::class)->using(CategoryCourse::class);
-    }
-
-    /**
-     * @return BelongsToMany
-     */
-    public function categories(): BelongsToMany
-    {
-        return $this->belongsToMany(Category::class)->using(CategoryCourse::class);
     }
 }

@@ -18,6 +18,7 @@ return new class extends Migration {
             $table->string('name')->nullable()->comment('名称');
             $table->tinyInteger('online_status')->default(OnlineStatus::UP)->nullable()->comment('在线状态')->index('online_status');
             $table->integer('sort')->nullable()->comment('排序')->index('sort');;
+            $table->integer('subject_number')->nullable()->default(0)->comment('栏目数量');
             $table->timestamps();
             $table->softDeletes();
         });
