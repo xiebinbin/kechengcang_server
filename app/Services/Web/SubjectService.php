@@ -26,7 +26,7 @@ class SubjectService
     public static function tree(int $channelId): array
     {
         $subjects = Subject::query()->where('channel_id', $channelId)->latest('sort')->get(['id', 'name']);
-        $categories = Category::query()->whereIn('channel_id', $subjects->pluck('id')->toArray())->get(['id', 'name', 'subject_id']);
+        $categories = Category::query()->where('channel_id', $channelId)->get(['id', 'name', 'subject_id']);
         foreach ($subjects as &$subject) {
             $subject->categories = $categories->where('subject_id', $subject->id)->map(function ($item) {
                 return [
