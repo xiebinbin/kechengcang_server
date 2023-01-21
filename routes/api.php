@@ -81,8 +81,19 @@ Route::middleware('auth:sanctum')->group(function () {
 
 Route::prefix('web')->group(function () {
     Route::controller(\App\Http\Controllers\Web\PayOrderController::class)->prefix('pay-orders')->group(function () {
-        Route::get('/show', 'show')->name('admin.pay-order.show');
-        Route::post('/store', 'store')->name('admin.pay-order.store');
-        Route::get('/submitted', 'submitted')->name('admin.pay-order.submitted');
+        Route::get('/show', 'show')->name('web.pay-order.show');
+        Route::post('/store', 'store')->name('web.pay-order.store');
+        Route::get('/submitted', 'submitted')->name('web.pay-order.submitted');
+    });
+    Route::controller(\App\Http\Controllers\Web\ChannelController::class)->prefix('channels')->group(function () {
+        Route::get('/index', 'index')->name('web.channels.index');
+    });
+    Route::controller(\App\Http\Controllers\Web\SubjectController::class)->prefix('subjects')->group(function () {
+        Route::get('/index', 'index')->name('web.subjects.index');
+        Route::get('/tree', 'tree')->name('web.subjects.tree');
+    });
+    Route::controller(\App\Http\Controllers\Web\CourseController::class)->prefix('courses')->group(function () {
+        Route::get('/index', 'index')->name('web.courses.index');
+        Route::get('/show', 'show')->name('web.courses.show');
     });
 });

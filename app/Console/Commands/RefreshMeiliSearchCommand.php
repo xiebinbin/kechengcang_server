@@ -42,10 +42,11 @@ class RefreshMeiliSearchCommand extends Command
         $client->createIndex($index);
         $client->index($index)->updateSortableAttributes([
             'id',
-            'sort'
+            'sort',
+            'recommend_status',
         ]);
         $client->index($index)->updateSearchableAttributes(['title', 'intro']);
-        $client->index($index)->updateFilterableAttributes(['category_ids']);
+        $client->index($index)->updateFilterableAttributes(['category_ids', 'online_status', 'recommend_status', 'subject_ids', 'channel_ids']);
         return self::SUCCESS;
     }
 }
