@@ -19,7 +19,7 @@ class EditorJsController extends Controller
         return response()->json([
             'success' => 1,
             'file' => [
-                'url' => Storage::disk('public')->url($url)
+                'url' => Storage::disk('doge')->url($url)
             ]
         ]);
     }
@@ -31,7 +31,7 @@ class EditorJsController extends Controller
         return response()->json([
             'success' => 1,
             'file' => [
-                'url' => Storage::disk('public')->url($url)
+                'url' => Storage::disk('doge')->url($url)
             ]
         ]);
     }
