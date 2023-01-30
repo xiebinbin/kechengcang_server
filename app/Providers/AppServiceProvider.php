@@ -2,7 +2,9 @@
 
 namespace App\Providers;
 
+use App\Services\Admin\UploadService;
 use Aws\S3\S3Client;
+use Exception;
 use Illuminate\Filesystem\AwsS3V3Adapter;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Storage;
@@ -29,9 +31,11 @@ class AppServiceProvider extends ServiceProvider
      * Bootstrap any application services.
      *
      * @return void
+     * @throws Exception
      */
     public function boot(): void
     {
+        UploadService::refreshDogeCloudToken();
         Storage::extend('doge', function ($app, $config) {
             $config += ['version' => 'latest'];
 
