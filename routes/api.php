@@ -11,13 +11,17 @@ Route::prefix('admin')->group(function () {
         Route::post('/login', 'login')->name('login');
     });
 });
+
+
 Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('admin')->group(function () {
         Route::controller(\App\Http\Controllers\Admin\AuthController::class)->prefix('auth')->group(function () {
             Route::get('/me', 'me')->name('admin.auth.me');
             Route::post('/logout', 'logout')->name('admin.auth.logout');
         });
-        Route::post('upload', '\App\Http\Controllers\Admin\UploadController@index')->name('admin.upload');
+        Route::controller(\App\Http\Controllers\Admin\UploadController::class)->prefix('upload')->group(function () {
+            Route::post('', 'index')->name('admin.upload');
+        });
         Route::controller(\App\Http\Controllers\Admin\EditorJsController::class)->prefix('editor-js')->group(function () {
             Route::post('/upload-file', 'uploadFile')->name('admin.editor-js.uploadFile');
             Route::post('/upload-image', 'uploadImage')->name('admin.editor-js.uploadImage');
