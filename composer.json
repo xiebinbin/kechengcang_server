@@ -20,6 +20,7 @@
         "meilisearch/meilisearch-php": "^0.26.1",
         "predis/predis": "^2.0",
         "spatie/laravel-backup": "^8.1",
+        "ufree/laravel-doge-cloud": "^0.13.0",
         "vinkla/hashids": "^10.0"
     },
     "require-dev": {

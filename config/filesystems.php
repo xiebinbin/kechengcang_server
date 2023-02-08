@@ -55,17 +55,6 @@ return [
             'use_path_style_endpoint' => env('AWS_USE_PATH_STYLE_ENDPOINT', false),
             'throw' => false,
         ],
-        'doge' => [
-            'driver' => 'doge',
-            'key' => null,
-            'secret' => null,
-            'region' =>'automatic',
-            'bucket' => env('DOGE_BUCKET'),
-            'url' => env('DOGE_URL'),
-            'endpoint' => env('DOGE_ENDPOINT'),
-            'use_path_style_endpoint' => env('DOGE_USE_PATH_STYLE_ENDPOINT', false),
-            'throw' => false,
-        ],
     ],
 
     /*
