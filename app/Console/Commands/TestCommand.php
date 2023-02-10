@@ -7,11 +7,13 @@ use App\Services\Admin\UploadService;
 use App\Services\Base\ApplicationService;
 use App\Services\Base\CategoryService;
 use App\Services\MerchantService;
+use GuzzleHttp\Client;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Ufree\LaravelDogeCloud\DogeCloud;
 use Vinkla\Hashids\Facades\Hashids;
 
 class TestCommand extends Command
@@ -35,21 +37,11 @@ class TestCommand extends Command
      *
      * @return int
      * @throws \Exception
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function handle()
     {
-        $api = UploadService::dogeCloudApi('/auth/tmp_token.json', array(
-            "channel" => "OSS_FULL",
-            "scopes" => array("*")
-        ), true);
-        if ($api && $api['code'] == 200) {
-            $credentials = $api['data']['Credentials'];
-        } else {
-            // 失败
-
-        }
-        dd($credentials);
-        dd(Storage::disk('doge')->put('test.txt','hello'));
+        dd(Storage::disk('doge')->put('testxx.txt', 'hello'));
         dd(CategoryService::treeData());
         $a = [1, 2, 4];
         $b = [1, 2, 3];
