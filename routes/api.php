@@ -101,3 +101,13 @@ Route::prefix('web')->group(function () {
         Route::get('/show', 'show')->name('web.courses.show');
     });
 });
+Route::post('postMsg', function () {
+    return response()->json(
+        [
+            'returncode' => 0,
+            'result' => [
+                'msg' => '响应成功!'
+            ]
+        ]
+    );
+});

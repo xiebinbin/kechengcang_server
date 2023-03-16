@@ -18,9 +18,10 @@
         "league/flysystem-aws-s3-v3": "^3.0",
         "league/flysystem-sftp-v3": "^3.0",
         "meilisearch/meilisearch-php": "^0.26.1",
+        "orhanerday/open-ai": "^4.7",
         "predis/predis": "^2.0",
         "spatie/laravel-backup": "^8.1",
-        "ufree/laravel-doge-cloud": "^0.18.0",
+        "ufree/laravel-doge-cloud": "^0.19.0",
         "vinkla/hashids": "^10.0"
     },
     "require-dev": {

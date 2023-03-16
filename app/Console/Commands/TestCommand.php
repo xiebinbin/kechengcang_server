@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
+use Orhanerday\OpenAi\OpenAi;
 use Ufree\LaravelDogeCloud\DogeCloud;
 use Vinkla\Hashids\Facades\Hashids;
 
@@ -41,31 +42,31 @@ class TestCommand extends Command
      */
     public function handle()
     {
-        dd(Storage::disk('doge')->put('testxx.txt', 'hello'));
-        dd(CategoryService::treeData());
-        $a = [1, 2, 4];
-        $b = [1, 2, 3];
-        $newCategoryIds = array_diff($a, $b);
-        $delCategoryIds = array_diff($b, $a);
-        sort($newCategoryIds);
-        sort($delCategoryIds);
-        dd($delCategoryIds, $newCategoryIds);
-        $baseUrl = 'https://api.magapaypal.com';
-        $api = '/api/web/pay-orders/store';
-        $salt = Str::random(6);
-        $key = 'So2LBFyyYHwUVjIWmY1uEauXL4wtIhCITWHaySNW8Yq5C2WciVtnmDL6lje0DubA';
-        $sign = ApplicationService::sign($key, $salt);
-        $params = [
-            'title' => '测试',
-            'fee' => 2000,
-            'remark' => 'xx',
-            'app_id' => '6eXc46XUBDlOUAQBjfbjHhRwkIEzQOL18FcyD9kym8WhDeQXkJeX1B8QTT6czyeO',
-            'salt' => $salt,
-            'sign' => $sign,
-            'currency' => 1
-        ];
-        $response = Http::post($baseUrl . $api, $params);
-        dd($response, json_decode($response->body(), true));
-        return Command::SUCCESS;
+
+        $openAi = new OpenAi('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');
+        $complete = $openAi->chat([
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                [
+                    "role" => "system",
+                    "content" => "你是一个情感大师."
+                ],
+                [
+                    "role" => "user",
+                    "content" => "你好"
+                ]
+            ],
+            'temperature' => 1.0,
+            'max_tokens' => 4000,
+            'frequency_penalty' => 0,
+            'presence_penalty' => 0,
+        ]);
+        if(!empty($complete)){
+            $rep = json_decode(rtrim($complete),true);
+
+            dd($rep['choices'][0]['message']['content']);
+        }
+        dd("服务器响应失败，请重试!");
+        return self::SUCCESS;
     }
 }
