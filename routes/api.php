@@ -103,8 +103,10 @@ Route::prefix('web')->group(function () {
     });
 });
 Route::post('postMsg', function () {
-    $openAi = new OpenAi(env('OPEN_AI_KEY'));
-    $msg = \request()->input('msg');
+    $key = env('OPEN_AI_KEY');
+    $openAi = new OpenAi($key);
+    $msg = request()->input('msg','');
+    //$openAi->setProxy('http://127.0.0.1:1087');
     $content = '响应成功!';
     if (!empty($msg)) {
         $complete = $openAi->chat([
