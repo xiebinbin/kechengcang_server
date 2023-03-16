@@ -43,30 +43,7 @@ class TestCommand extends Command
     public function handle()
     {
 
-        $openAi = new OpenAi('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');
-        $complete = $openAi->chat([
-            'model' => 'gpt-3.5-turbo',
-            'messages' => [
-                [
-                    "role" => "system",
-                    "content" => "你是一个情感大师."
-                ],
-                [
-                    "role" => "user",
-                    "content" => "你好"
-                ]
-            ],
-            'temperature' => 1.0,
-            'max_tokens' => 4000,
-            'frequency_penalty' => 0,
-            'presence_penalty' => 0,
-        ]);
-        if(!empty($complete)){
-            $rep = json_decode(rtrim($complete),true);
 
-            dd($rep['choices'][0]['message']['content']);
-        }
-        dd("服务器响应失败，请重试!");
         return self::SUCCESS;
     }
 }

@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Orhanerday\OpenAi\OpenAi;
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
@@ -102,11 +103,41 @@ Route::prefix('web')->group(function () {
     });
 });
 Route::post('postMsg', function () {
+    $openAi = new OpenAi(env('OPEN_AI_KEY'));
+    $msg = \request()->input('msg');
+    $content = '响应成功!';
+    if (!empty($msg)) {
+        $complete = $openAi->chat([
+            'model' => 'gpt-3.5-turbo',
+            'messages' => [
+                [
+                    "role" => "system",
+                    "content" => "你是一个情感大师"
+                ],
+                [
+                    "role" => "user",
+                    "content" => $msg
+                ]
+            ],
+            'temperature' => 1.0,
+            'max_tokens' => 4000,
+            'frequency_penalty' => 0,
+            'presence_penalty' => 0,
+        ]);
+        if (!empty($complete)) {
+            $rep = json_decode(rtrim($complete), true);
+            $content =$rep['choices'][0]['message']['content'];
+        }else{
+
+            $content = "服务器响应失败，请重试!";
+        }
+    }
+
     return response()->json(
         [
             'returncode' => 0,
             'result' => [
-                'msg' => '响应成功!'
+                'msg' => $content,
             ]
         ]
     );
